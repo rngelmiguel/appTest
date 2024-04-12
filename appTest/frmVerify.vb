@@ -171,9 +171,12 @@ Public Class frmVerify
 
             For Each row As DataRow In oDataTableUsuarios.Rows
                 Console.WriteLine("Entre al datatable")
-                Dim memoria As New MemoryStream(CType(row.Item("huella"), Byte()))
-                template.DeSerialize(memoria.ToArray())
-                verifica.Verify(caracteristicas, template, result)
+                Dim hByte As Byte() = row.Item("huella")
+                Dim asd As String = row.Item("nombres")
+                Dim memoria As New MemoryStream(hByte)
+                Dim template0 As New DPFP.Template(memoria)
+                'template.DeSerialize(memoria.ToArray())
+                verifica.Verify(caracteristicas, template0, result)
                 If (result.Verified) Then
                     encontrado = True
                     cedula = row.Item("id")
